@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roast &amp; Co. | Coffee House</title>
+<meta name="description" content="Freshly roasted coffee, pastries and a warm place to sit.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#fbf6ef;--ink:#1e1410;--muted:#6f5f55;--accent:#b8602e;--card:#fff;--line:#e6d8c8;--dark:#1e1410}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;line-height:1.6}
+h1,h2,h3{font-family:'Fraunces',Georgia,serif;line-height:1.1;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+a{color:inherit}
+.btn{display:inline-block;font:inherit;font-weight:700;padding:13px 26px;border:0;border-radius:999px;background:var(--accent);color:#fff;text-decoration:none;cursor:pointer}
+.btn.dark{background:var(--ink)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+header{position:sticky;top:0;z-index:20;background:rgba(251,246,239,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;text-decoration:none}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:26px;align-items:center}
+nav a{text-decoration:none;font-weight:500}
+nav a:hover,nav a.active{color:var(--accent)}
+.cartbtn{font:inherit;font-weight:700;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:8px 16px;cursor:pointer}
+.burger{display:none;background:none;border:0;font-size:1.8rem;cursor:pointer;color:var(--ink)}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:72px 0}
+.hero h1{font-size:clamp(2.6rem,7vw,5rem);letter-spacing:-.03em;margin-bottom:18px}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:44ch;margin:0 0 26px}
+.cup{aspect-ratio:1;max-width:380px;margin:auto;width:100%;border-radius:50%;background:radial-gradient(circle,#3b2316 0 18%,#5a3620 18% 30%,#7a4a2b 30% 44%,#c89a6b 44% 52%,#f1e4d0 52% 64%,#1e1410 64% 66%,#b8602e 66% 100%);box-shadow:0 30px 60px rgba(30,20,16,.28)}
+section{padding:64px 0}
+.eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;margin-bottom:8px}
+h2{font-size:clamp(1.9rem,4.5vw,3rem);margin-bottom:14px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.stat b{display:block;font-family:'Fraunces',serif;font-size:2rem;color:var(--accent)}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px}
+.tabs button{font:inherit;font-weight:500;padding:8px 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);cursor:pointer;color:var(--ink)}
+.tabs button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.item h3{font-size:1.25rem}
+.item p{margin:0;color:var(--muted);font-size:.95rem;flex:1}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.price{font-weight:700}
+.add{font:inherit;font-weight:700;border:1.5px solid var(--accent);color:var(--accent);background:none;border-radius:999px;padding:6px 16px;cursor:pointer}
+.add:hover{background:var(--accent);color:#fff}
+.dark-sec{background:var(--dark);color:#f1e4d0}
+.dark-sec .eyebrow{color:#e0a173}
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+.quote{border:1px solid #3a2a22;border-radius:16px;padding:22px}
+.quote p{margin:0 0 12px;font-family:'Fraunces',serif;font-size:1.1rem}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+form{display:grid;gap:12px}
+input,textarea{font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--card);width:100%}
+.msg{font-weight:700;color:var(--accent);min-height:1.5em}
+footer{padding:26px 0;text-align:center;color:var(--muted);border-top:1px solid var(--line);font-size:.9rem}
+#panel{position:fixed;right:0;top:0;height:100%;width:min(360px,100%);background:var(--card);box-shadow:-10px 0 40px rgba(0,0,0,.2);transform:translateX(105%);transition:transform .3s;z-index:30;padding:22px;display:flex;flex-direction:column}
+#panel.open{transform:none}
+#panel h3{margin-bottom:14px}
+#lines{flex:1;overflow:auto}
+.line{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.line button{background:none;border:0;color:#b3261e;cursor:pointer;font:inherit}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--ink);color:#fff;padding:10px 20px;border-radius:999px;transition:transform .3s;z-index:40}
+.toast.show{transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s}
+.reveal.show{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:760px){
+  .burger{display:block}
+  nav{position:absolute;top:64px;left:0;right:0;background:var(--bg);flex-direction:column;padding:18px 20px;gap:16px;border-bottom:1px solid var(--line);display:none;align-items:flex-start}
+  nav.open{display:flex}
+  .hero,.about,.contact,.quotes{grid-template-columns:1fr}
+  .hero{padding:40px 0}.cup{max-width:260px;order:-1}
+  .stats{grid-template-columns:1fr 1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#top" id="logo"></a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    <nav id="nav">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+      <button class="cartbtn" id="cartBtn">Order (<span id="count">0</span>)</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Small-batch coffee house</p>
+      <h1>Slow coffee, <em>made properly.</em></h1>
+      <p>Single-origin beans roasted every week, pulled with care, and served with something warm from the oven.</p>
+      <a class="btn" href="#menu">See the menu</a>
+      <a class="btn dark" href="#contact">Visit us</a>
+    </div>
+    <div class="cup" role="img" aria-label="Illustration of a cup of coffee seen from above"></div>
+  </div>
+
+  <section id="about"><div class="wrap about">
+    <div class="reveal">
+      <p class="eyebrow">Our story</p>
+      <h2>Beans we can name, farmers we know.</h2>
+      <p>We buy directly from small farms, roast in small batches, and brew every cup to order. No rush, no shortcuts, just good coffee and a good seat.</p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><b>12</b>Origins</div>
+      <div class="stat"><b>7</b>Day roast</div>
+      <div class="stat"><b>5k</b>Cups a month</div>
+    </div>
+  </div></section>
+
+  <section id="menu"><div class="wrap">
+    <p class="eyebrow">Menu</p>
+    <h2>Pick something good.</h2>
+    <div class="tabs" id="tabs"></div>
+    <div class="grid" id="grid"></div>
+  </div></section>
+
+  <section id="reviews" class="dark-sec"><div class="wrap">
+    <p class="eyebrow">Kind words</p>
+    <h2>Regulars say it best.</h2>
+    <div class="quotes">
+      <div class="quote reveal"><p>Best flat white in town, and the staff remember your name.</p><small>Amina, designer</small></div>
+      <div class="quote reveal"><p>My go-to spot for work. Quiet mornings, strong coffee.</p><small>Brian, developer</small></div>
+      <div class="quote reveal"><p>The croissants alone are worth the trip.</p><small>Grace, teacher</small></div>
+    </div>
+  </div></section>
+
+  <section id="contact"><div class="wrap contact">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2>Say hello.</h2>
+      <p id="contactInfo"></p>
+    </div>
+    <form id="form" novalidate>
+      <input id="fname" type="text" placeholder="Your name" aria-label="Your name">
+      <input id="femail" type="email" placeholder="Your email" aria-label="Your email">
+      <textarea id="fmsg" rows="4" placeholder="Your message" aria-label="Your message"></textarea>
+      <button class="btn" type="submit">Send message</button>
+      <div class="msg" id="formMsg" role="status"></div>
+    </form>
+  </div></section>
+</main>
+<footer>&copy; <span id="yr"></span> <span id="footName"></span>. All rights reserved.</footer>
+
+<aside id="panel" aria-label="Your order">
+  <h3>Your order</h3>
+  <div id="lines"></div>
+  <p><b id="sum">KES 0</b></p>
+  <button class="btn" id="wa">Send order on WhatsApp</button>
+  <button class="btn dark" id="closeCart" style="margin-top:8px">Close</button>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+  // ===== Edit these =====
+  var CAFE_NAME = "WASWA RONY Coffee House";
+  var EMAIL = "waswarony70@gmail.com";
+  var PHONE = "0790626555";
+  var ADDRESS = "01300 Kutus-Kerugoya Road, Kutus Kirinyaga, Kenya";
+  var HOURS = "Open Monday to Saturday, 7:00 AM to 10:00 PM";
+  var CURRENCY = "KES";
+  var WHATSAPP = "254790626555";   // your number, with country code and no + sign
+  var menu = [
+    { name: "Espresso", desc: "Rich, short and bold.", price: 200, cat: "Hot" },
+    { name: "Flat White", desc: "Velvety milk over a double shot.", price: 320, cat: "Hot" },
+    { name: "Cappuccino", desc: "Equal parts espresso, milk and foam.", price: 330, cat: "Hot" },
+    { name: "Iced Latte", desc: "Chilled espresso with cold milk.", price: 350, cat: "Cold" },
+    { name: "Cold Brew", desc: "Steeped for 18 hours, smooth finish.", price: 380, cat: "Cold" },
+    { name: "Mango Cooler", desc: "Fresh mango, mint and ice.", price: 300, cat: "Cold" },
+    { name: "Butter Croissant", desc: "Flaky, baked every morning.", price: 250, cat: "Bakery" },
+    { name: "Banana Bread", desc: "Moist, with toasted walnuts.", price: 280, cat: "Bakery" }
+  ];
+  // ======================
+  var cart = {};
+  var $ = function (id) { return document.getElementById(id); };
+  var money = function (n) { return CURRENCY + " " + n.toLocaleString("en-US"); };
+
+  function toast(text) {
+    var t = $("toast");
+    t.textContent = text;
+    t.classList.add("show");
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(function () { t.classList.remove("show"); }, 1600);
+  }
+
+  function renderMenu(cat) {
+    var grid = $("grid");
+    grid.textContent = "";
+    menu.filter(function (m) { return cat === "All" || m.cat === cat; }).forEach(function (m) {
+      var card = document.createElement("div");
+      card.className = "item reveal show";
+      var h = document.createElement("h3"); h.textContent = m.name;
+      var p = document.createElement("p"); p.textContent = m.desc;
+      var row = document.createElement("div"); row.className = "row";
+      var price = document.createElement("span"); price.className = "price"; price.textContent = money(m.price);
+      var add = document.createElement("button"); add.className = "add"; add.textContent = "Add";
+      add.addEventListener("click", function () { addToCart(m); });
+      row.appendChild(price); row.appendChild(add);
+      card.appendChild(h); card.appendChild(p); card.appendChild(row);
+      grid.appendChild(card);
+    });
+  }
+
+  function buildTabs() {
+    var cats = ["All"];
+    menu.forEach(function (m) { if (cats.indexOf(m.cat) === -1) cats.push(m.cat); });
+    cats.forEach(function (c, i) {
+      var b = document.createElement("button");
+      b.textContent = c;
+      if (i === 0) b.className = "on";
+      b.addEventListener("click", function () {
+        document.querySelectorAll("#tabs button").forEach(function (x) { x.className = ""; });
+        b.className = "on";
+        renderMenu(c);
+      });
+      $("tabs").appendChild(b);
+    });
+  }
+
+  function addToCart(m) {
+    cart[m.name] = cart[m.name] ? { item: m, qty: cart[m.name].qty + 1 } : { item: m, qty: 1 };
+    renderCart();
+    toast(m.name + " added");
+  }
+
+  function removeFromCart(name) {
+    delete cart[name];
+    renderCart();
+  }
+
+  function renderCart() {
+    var lines = $("lines"), count = 0, sum = 0;
+    lines.textContent = "";
+    Object.keys(cart).forEach(function (name) {
+      var e = cart[name];
+      count += e.qty;
+      sum += e.qty * e.item.price;
+      var line = document.createElement("div"); line.className = "line";
+      var label = document.createElement("span"); label.textContent = e.qty + " x " + name + " (" + money(e.qty * e.item.price) + ")";
+      var rm = document.createElement("button"); rm.textContent = "Remove";
+      rm.addEventListener("click", function () { removeFromCart(name); });
+      line.appendChild(label); line.appendChild(rm);
+      lines.appendChild(line);
+    });
+    if (count === 0) lines.textContent = "Your order is empty.";
+    $("count").textContent = count;
+    $("sum").textContent = "Total: " + money(sum);
+  }
+
+  function sendOrder() {
+    var names = Object.keys(cart);
+    if (names.length === 0) { toast("Add something first"); return; }
+    var total = 0;
+    var text = "Hello " + CAFE_NAME + ", I would like to order:\n";
+    names.forEach(function (n) {
+      var e = cart[n];
+      total += e.qty * e.item.price;
+      text += e.qty + " x " + n + " = " + money(e.qty * e.item.price) + "\n";
+    });
+    text += "Total: " + money(total);
+    window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(text), "_blank");
+  }
+
+  $("cartBtn").addEventListener("click", function () { $("panel").classList.add("open"); });
+  $("closeCart").addEventListener("click", function () { $("panel").classList.remove("open"); });
+  $("wa").addEventListener("click", sendOrder);
+
+  var burger = $("burger"), nav = $("nav");
+  burger.addEventListener("click", function () {
+    var open = nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open);
+  });
+  nav.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") { nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false"); }
+  });
+
+  $("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var msg = $("formMsg");
+    var ok = $("fname").value.trim() && /^\S+@\S+\.\S+$/.test($("femail").value.trim()) && $("fmsg").value.trim();
+    msg.textContent = ok ? "Thank you! We will reply soon." : "Please fill in your name, a valid email and a message.";
+    if (ok) e.target.reset();
+  });
+
+  // highlight the nav link of the section you are viewing
+  var links = document.querySelectorAll("nav a");
+  var sections = ["about", "menu", "reviews", "contact"].map($);
+  window.addEventListener("scroll", function () {
+    var y = window.scrollY + 120, current = "";
+    sections.forEach(function (s) { if (s.offsetTop <= y) current = s.id; });
+    links.forEach(function (a) { a.classList.toggle("active", a.getAttribute("href") === "#" + current); });
+  });
+
+  // fade sections in as they scroll into view
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("show"); io.unobserve(en.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll(".reveal:not(.show)").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("show"); });
+  }
+
+  // fill in the cafe details from the settings at the top
+  document.title = CAFE_NAME + " | Coffee House";
+  $("logo").textContent = CAFE_NAME;
+  $("footName").textContent = CAFE_NAME;
+  (function () {
+    var box = $("contactInfo");
+    function text(t) { box.appendChild(document.createTextNode(t)); box.appendChild(document.createElement("br")); }
+    function link(label, href, shown) {
+      box.appendChild(document.createTextNode(label));
+      var a = document.createElement("a"); a.href = href; a.textContent = shown;
+      box.appendChild(a); box.appendChild(document.createElement("br"));
+    }
+    text(HOURS);
+    text(ADDRESS);
+    link("Phone: ", "tel:+" + WHATSAPP, PHONE);
+    link("Email: ", "mailto:" + EMAIL, EMAIL);
+  })();
+
+  $("yr").textContent = new Date().getFullYear();
+  buildTabs();
+  renderMenu("All");
+  renderCart();
+</script>
+</body>
+</html>
